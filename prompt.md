@@ -15,3 +15,9 @@ Build a phone-first product page for the Nike Pegasus 43 (Black/White-Volt, $140
 **No layout shift:** The size grid must not move when the photos load late. Reserve the photo area with `aspect-ratio: 375 / 280` and a placeholder, use `next/image` with `fill` inside that box, and keep the size grid's height fixed from the first render. Aim for a Cumulative Layout Shift near 0.
 
 **Done when:** All 26 sizes render in order, the three states look and behave as above, a shopper can select any size and see its stock message, and the page has no visible jump while photos load on a slow 3G connection.
+
+# Prompt: Slow 4G phone trace
+
+Record a Slow 4G phone trace with Chrome DevTools MCP on a 375 x 812 CSS px viewport at 3x pixel density with mobile on, Slow 4G (150 ms round trip, 1638.4 Kbps) and a 4x CPU slowdown. Do not judge the size grid from a desktop trace or an unthrottled trace. Report back with what moves in the grid.
+
+Resource: Web Platform Slow 4G Mobile Check Profile.yaml.
