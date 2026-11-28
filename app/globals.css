@@ -1,0 +1,126 @@
+:root {
+  --ink: #111111;
+  --ink-2: #6b6b6b;
+  --line: #4a4a4a;
+  --soft: #f2f2f2;
+  --soft-line: #b5b5b5;
+  --soft-ink: #8a8a8a;
+  --amber: #e08a00;
+  --paper: #ffffff;
+  /* System font stack: no web font, so no late text swap above the grid. */
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); }
+h1, h2, p { margin: 0; }
+
+.pdp { max-width: 600px; margin: 0 auto; }
+
+/* Photo area is reserved before the image arrives. */
+.photo-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 375 / 280;
+  background: #ededed;
+  overflow: hidden;
+}
+
+.content { padding: 16px 16px 32px; }
+.eyebrow { font-size: 14px; line-height: 20px; color: var(--ink-2); }
+.title { font-size: 24px; line-height: 32px; font-weight: 600; margin-top: 4px; }
+.colorway { font-size: 14px; line-height: 20px; color: var(--ink-2); margin-top: 4px; }
+/* Fixed one-line box: a font swap or a wider price string cannot change its height. */
+.price {
+  height: 24px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  margin-top: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sizes { margin-top: 24px; }
+.sizes__heading { font-size: 16px; line-height: 24px; font-weight: 500; margin-bottom: 8px; }
+
+/* 4 columns, 8 px gap, 48 px rows; height fixed from the first render. */
+.size-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 48px;
+  gap: 8px;
+  height: calc(var(--rows) * 48px + (var(--rows) - 1) * 8px);
+}
+
+.size-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+.size-btn__men { font-size: 14px; line-height: 20px; font-weight: 500; }
+.size-btn__women { font-size: 12px; line-height: 16px; color: var(--ink-2); }
+.size-btn[aria-checked="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.size-btn[aria-checked="true"] .size-btn__women { color: #d0d0d0; }
+.size-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.size-btn__dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+}
+
+.size-btn--sold_out {
+  background: var(--soft);
+  color: var(--soft-ink);
+  border: 1px dashed var(--soft-line);
+  overflow: hidden;
+}
+.size-btn--sold_out .size-btn__women { color: var(--soft-ink); }
+.size-btn--sold_out::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top right,
+    transparent calc(50% - 0.5px),
+    var(--soft-line) calc(50% - 0.5px),
+    var(--soft-line) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
+  pointer-events: none;
+}
+.size-btn--sold_out[aria-checked="true"] { background: #dcdcdc; color: var(--ink); border-color: var(--ink); }
+
+/* Message line keeps its height when empty, so nothing below it jumps. */
+.size-msg { min-height: 20px; margin-top: 8px; font-size: 14px; line-height: 20px; color: var(--ink); }
+
+.add-btn {
+  width: 100%;
+  height: 56px;
+  margin-top: 16px;
+  border: 0;
+  border-radius: 28px;
+  background: var(--ink);
+  color: var(--paper);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.add-btn:disabled { background: #cfcfcf; color: #6b6b6b; cursor: not-allowed; }
